@@ -123,7 +123,7 @@ class Snake(GameObject):
 
     def __init__(self,
                  length=1,
-                 positions=[snake_start],
+                 positions=snake_start,
                  direction=RIGHT,
                  body_color=SNAKE_COLOR,
                  next_direction=None
@@ -141,7 +141,7 @@ class Snake(GameObject):
         """
         super().__init__(positions[0], body_color)
         self.length = length
-        self.positions = positions
+        self.positions = [positions]
         self.direction = direction
         self.body_color = body_color
         self.next_direction = next_direction
