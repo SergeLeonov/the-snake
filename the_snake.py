@@ -1,5 +1,6 @@
-from random import choice, randint
 import pygame
+
+from random import choice, randint
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -31,7 +32,7 @@ pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 # Координаты старта змейки
 snake_start_x, snake_start_y = SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2
-snake_start = (snake_start_x, snake_start_y)
+snake_start = [(snake_start_x, snake_start_y)]
 # Начальные координаты яблока
 apple_start_random = randint(0, GRID_WIDTH - 1) * GRID_SIZE
 apple_start_xy = (apple_start_random, apple_start_random)
@@ -121,7 +122,7 @@ class Snake(GameObject):
 
     def __init__(self,
                  length=1,
-                 positions=[snake_start],
+                 positions=snake_start,
                  direction=RIGHT,
                  body_color=SNAKE_COLOR,
                  next_direction=None
