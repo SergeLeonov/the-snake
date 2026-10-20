@@ -25,14 +25,15 @@ SNAKE_COLOR = (0, 255, 0)
 # Скорость движения змейки:
 SPEED = 10
 # Настройка игрового окна:
+pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 # Заголовок окна игрового поля:
 pygame.display.set_caption('Змейка')
 # Настройка времени:
 clock = pygame.time.Clock()
 # Координаты старта змейки
-snake_start_x, snake_start_y = SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2
-snake_start = [(snake_start_x, snake_start_y)]
+snake_start_x, snake_start_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+snake_start = (snake_start_x, snake_start_y)
 # Начальные координаты яблока
 apple_start_random = randint(0, GRID_WIDTH - 1) * GRID_SIZE
 apple_start_xy = (apple_start_random, apple_start_random)
@@ -122,7 +123,7 @@ class Snake(GameObject):
 
     def __init__(self,
                  length=1,
-                 positions=snake_start,
+                 positions=[snake_start],
                  direction=RIGHT,
                  body_color=SNAKE_COLOR,
                  next_direction=None
@@ -254,8 +255,6 @@ def main():
     Инициализирует объекты, обрабатывает ввод, обновляет состояние, проверяет
     столкновения, отрисовывает кадр и контролирует частоту кадров.
     """
-    pygame.init()
-
     apple = Apple()
     snake = Snake()
 
