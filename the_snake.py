@@ -1,5 +1,5 @@
 from random import choice, randint
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
 
 import pygame
 
@@ -107,7 +107,7 @@ class Apple(GameObject):
         self.position = position
         self.body_color = body_color
 
-    def randomize_position(self, snake: Snake) -> Position:
+    def randomize_position(self, snake: "Snake") -> Position:
         """
         Перемещает яблоко в новую случайную позицию на сетке.
 
