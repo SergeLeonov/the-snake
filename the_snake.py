@@ -38,11 +38,6 @@ snake_start: Tuple[int, int] = (
     SCREEN_WIDTH // 2,
     SCREEN_HEIGHT // 2
 )
-# Начальные координаты яблока
-apple_start_xy: Tuple[int, int] = (
-    randint(0, GRID_WIDTH - 1) * GRID_SIZE,
-    randint(0, GRID_HEIGHT - 1) * GRID_SIZE
-)
 
 Position = Tuple[int, int]
 Positions = List[Position]
@@ -79,7 +74,7 @@ class GameObject:
         По умолчанию ничего не делает:
         переопределяется в дочерних классах
         """
-        raise NotImplementedError
+        raise NotImplementedError("Переопределить в наследниках")
 
 
 class Apple(GameObject):
@@ -91,7 +86,7 @@ class Apple(GameObject):
     """
 
     def __init__(self,
-                 position: Position = apple_start_xy,
+                 position: Optional[Position] = None,
                  body_color: Tuple[int, int, int] = APPLE_COLOR
                  ) -> None:
         """
@@ -107,7 +102,7 @@ class Apple(GameObject):
         self.position = position
         self.body_color = body_color
 
-    def randomize_position(self, snake: 'Snake') -> Position:
+    def randomize_position(self, snake_position: Positions) -> Position:
         """
         Перемещает яблоко в новую случайную позицию на сетке.
 
@@ -122,7 +117,7 @@ class Apple(GameObject):
             apple_position_y = randint(0, GRID_HEIGHT - 1) * GRID_SIZE
             pre_position = (apple_position_x, apple_position_y)
 
-            if pre_position not in snake.positions:
+            if pre_position not in snake_position[1:]:
                 self.position = pre_position
                 return self.position
 
@@ -260,6 +255,8 @@ def main() -> None:
     snake = Snake()
     apple = Apple()
 
+    apple.randomize_position(snake.positions)
+
     while True:
 
         handle_keys(snake)
@@ -269,11 +266,12 @@ def main() -> None:
         head_position = snake.get_head_position()
 
         if head_position == apple.position:
-            apple.randomize_position(snake)
+            apple.randomize_position(snake.positions)
             snake.grow()
 
         if head_position in snake.positions[1:]:
             snake.reset()
+            apple.randomize_position(snake.positions)
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
