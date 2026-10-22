@@ -74,7 +74,7 @@ class GameObject:
         По умолчанию ничего не делает:
         переопределяется в дочерних классах
         """
-        raise NotImplementedError("Переопределить в наследниках")
+        raise NotImplementedError('Переопределим в наследниках')
 
 
 class Apple(GameObject):
